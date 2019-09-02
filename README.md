@@ -1,2 +1,2 @@
 # Betteroutgauge
-An attempt to create a desktop outgauhe client with support for visual themes
+An attempt to create a desktop outgauge client with support for visual themes
