@@ -1,6 +1,32 @@
 import kivy
 kivy.require('1.1.0')
 
+import socket
+import time
+import struct
+from collections import namedtuple
+#building socket
+s = socket.socket (socket.AF_INET, socket.SOCK_DGRAM)
+s.bind(("127.0.0.1", 4444))
+#main function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 from kivy.app import App
 from kivy.uix.label import Label

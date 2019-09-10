@@ -8,7 +8,8 @@ s = socket.socket (socket.AF_INET, socket.SOCK_DGRAM)
 ip = "127.0.0.1"
 port = 4444
 class car:
-    def __init__(self):
+    def __init__(self, data):
+        self.data(self.Time, self.car1, self.flag, self.gear,self.plid,self.speed,self.rpm,self.turbo,self.engTemp,self.fuel,self.oilPressure,self.oilTemp,self.dashLights,self.showLights,self.throttle,self.brake,self.clutch,self.display1,self.display2,self.id)
         self.Time=0
         self.car1="beam"
         self.flag=49152                     
@@ -32,25 +33,16 @@ class car:
         data = struct.pack('Bxxx4sHssfffffffBBfff16s16si',Time, car1, flags, gear, plid, speed, rpm, turbo, engTemp, fuel, oilPressure, oilTemp, dashLights, showLights, throttle, brake, clutch, display1, display2)
         s.sendto(data(92),(ip,port))
 
-        self.__iter=0
+        #self.__iter=0
 
-        @property
-        def iter(self):
-            if self.__iter>150:
-                self.__iter=0
-            return self.__iter
+        #@property
+        #def iter(self):
+        #    if self.__iter>150:
+        #        self.__iter=0
+        #    return self.__iter
 
 
-    def sweeper(self):
-        #return
-        self.gear=self.__iter%6
-        self.speed=(0.005*self.__iter)
-        self.rpm=self.__iter
-        self.engTemp=(100+self.__iter)
-        self.fuel=(1-(self.__iter/1000))
-        self.oilTemp=(100+1.05(self.__iter))
-
-        self.__iter+=1
+        
 
 
     def export(self):
@@ -76,6 +68,11 @@ class car:
         self.display2
         self.id
         data = struct.pack('Bxxx4sHssfffffffBBfff16s16si',Time, car1, flags, gear, plid, speed, rpm, turbo, engTemp, fuel, oilPressure, oilTemp, dashLights, showLights, throttle, brake, clutch, display1, display2)
-        s.sendto(data(92),(ip,port))
+        s.sendto(data1(92),(ip,port))
 
+c=car(data)
+
+
+
+#iter = __iter__
 #this is a test of the git integration software
