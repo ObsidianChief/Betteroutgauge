@@ -1,31 +1,14 @@
 #:kivy 1.1.0
 
 #:import Factory  kivy.factory.Factory
-#<RPM>
-    #rpm: rpm
 
-
-#<poof@Popup>:
-#    auto_dismiss: False
-#    
-#    #Label:
-#        #text: 'SURPRISE!'
-#        #center_x: root.width * 1/2
-#        #center_y: root.height * 1/2
-#    Button:
-#        text:'boo'
-#        on_release:root.dismiss()
-
-
+info: info
 
 
 <MainMenu>:
     orientation: "vertical"
 
 
-    Button:
-        text: "pls press"
-        on_release: Factory.poof().open()
 
     Label:
         text: root.info
