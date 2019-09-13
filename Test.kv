@@ -2,14 +2,20 @@
 
 <MainUI>:
     orientation: "vertical"
-
-
+    rpm: app.info
+    Label:
+        id:rpm
+        text: root.rpm + " RPM"
+        center_x:root.width * 1/2
+        center_y:root.height * 1/2
+#        on_press:app.tr2
 
     Button:
         id:bu1
-        text: "this is button 1"
+        text: "attempt connection"
         center_x:root.width * 3/4
         center_y:root.height * 1/8
+
 
     Button:
         id: bu2

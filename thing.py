@@ -3,58 +3,72 @@ kivy.require('1.1.0')
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
-#from kivy.properties import ObjectProperty, StringProperty
+from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.textinput import TextInput
+from kivy.clock import Clock
 
 import socket
+import struct
+
+
+class breakdown:
+
+    def __init__(self, Time=0, car='', flags=0, gear=0, plid='', speed=0, rpm=0, turbo=0, engTemp=0, fuel=0, oilPressure=0, oilTemp=0, dashLights=0, showLights=0, throttle=0, brake=0, clutch=0, display1='', display2='', id=0):
+        self.Time = Time
+        self.car = car
+        self.flags = flags
+        self.gear = gear
+        self.plid = plid
+        self.speed = speed
+        self.rpm = Time
+        self.turbo = turbo
+        self.engTemp = engTemp
+        self.fuel = fuel
+        self.oilPressure = oilPressure
+        self.oilTemp = oilTemp
+        self.dashLights = dashLights
+        self.showLights = showLights
+        self.throttle = throttle
+        self.brake = brake
+        self.clutch = clutch
+        self.display1 = display1
+        self.display2 = display2
+        self.id = id
+
+#    while True:
+    def connect(self):
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.bind(('127.0.0.1', 4444))
+
+    def data_in(self, data):
+        self.data
+
+    def collect(self):
+        self.data, addr=self.s.recvfrom(92)
+
+    def unpack(self, data):
+        Time, car, flags, gear, plid, speed, rpm, turbo, engTemp, fuel, oilPressure, oilTemp, dashLights, showLights, throttle, brake, clutch, display1, display2, id = struct.unpack('Bxxx4sHssfffffffBBfff16s16si', data)
 
 
 class Test(App):
     title = "This is only a test"
-
+    bk = breakdown()
+#    info = breakdown.rpm
+    rpmstr = str(bk.rpm)
+    info = rpmstr
+    bk = ObjectProperty(None)
+#    trg1 = Clock.create_trigger(breakdown().connect())
+#    trg1()
+    breakdown().connect()
+    Clock.schedule_interval(breakdown().collect, 1/60)
+    Clock.schedule_interval(breakdown().unpack, 1/60)
+    print(info)
     def build(self):
         return MainUI()
 
 
-class datcol:
-    def __init__(self, data):
-        self.data = UDPconnect.s.recvfrom(92)
-
-
-class UDPconnect:
-
-    def __init__(self, s, sb):
-        self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.sb = s.bind(('127.0.0.1', 4444))
-
-
-print(datcol.data)
-
-
 class Dtn:
     pass
-
-
-#Dtn.dtime = Time
-#Dtn.dcar = car
-#Dtn.dflags = flags
-#Dtn.dgear = gear
-#Dtn.dplid = plid
-#Dtn.dspeed = speed
-#Dtn.drpm = rpm
-#Dtn.dturbo = turbo
-#Dtn.dengtemp = engTemp
-#Dtn.dfuel = fuel
-#Dtn.doilPressure = oilPressure
-#Dtn.doilTemp = oilTemp
-#Dtn.ddashLights = dashLights
-#Dtn.dshowLights = showLights
-#Dtn.dthrottle = throttle
-#Dtn.dbrake = brake
-#Dtn.dclutch = clutch
-#Dtn.ddisplay1 = display1
-#Dtn.ddisplay2 = display2
-#Dtn.did = id
 
 
 class MainUI(GridLayout):
