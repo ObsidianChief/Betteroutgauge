@@ -3,76 +3,85 @@ kivy.require('1.1.0')
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
-from kivy.properties import ObjectProperty, StringProperty
+from kivy.properties import ObjectProperty, StringProperty, NumericProperty
 from kivy.uix.textinput import TextInput
 from kivy.clock import Clock
+from kivy.event import EventDispatcher
 
 import socket
 import struct
 
-
-class breakdown:
-
-    def __init__(self, Time=0, car='', flags=0, gear=0, plid='', speed=0, rpm=0, turbo=0, engTemp=0, fuel=0, oilPressure=0, oilTemp=0, dashLights=0, showLights=0, throttle=0, brake=0, clutch=0, display1='', display2='', id=0):
-        self.Time = Time
-        self.car = car
-        self.flags = flags
-        self.gear = gear
-        self.plid = plid
-        self.speed = speed
-        self.rpm = Time
-        self.turbo = turbo
-        self.engTemp = engTemp
-        self.fuel = fuel
-        self.oilPressure = oilPressure
-        self.oilTemp = oilTemp
-        self.dashLights = dashLights
-        self.showLights = showLights
-        self.throttle = throttle
-        self.brake = brake
-        self.clutch = clutch
-        self.display1 = display1
-        self.display2 = display2
-        self.id = id
-
-#    while True:
-    def connect(self):
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.bind(('127.0.0.1', 4444))
-
-    def data_in(self, data):
-        self.data
-
-    def collect(self):
-        self.data, addr=self.s.recvfrom(92)
-
-    def unpack(self, data):
-        Time, car, flags, gear, plid, speed, rpm, turbo, engTemp, fuel, oilPressure, oilTemp, dashLights, showLights, throttle, brake, clutch, display1, display2, id = struct.unpack('Bxxx4sHssfffffffBBfff16s16si', data)
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sb = s.bind(('127.0.0.1', 4444))
+data, addr = s.recvfrom(92)
+Time, car, flags, gear, plid, speed, rpm, turbo, engTemp, fuel, oilPressure, oilTemp, dashLights, showLights, throttle, brake, clutch, display1, display2, id = struct.unpack('Bxxx4sHssfffffffBBfff16s16si', data)
 
 
 class Test(App):
-    title = "This is only a test"
-    bk = breakdown()
-#    info = breakdown.rpm
-    rpmstr = str(bk.rpm)
-    info = rpmstr
-    bk = ObjectProperty(None)
-#    trg1 = Clock.create_trigger(breakdown().connect())
-#    trg1()
-    breakdown().connect()
-    Clock.schedule_interval(breakdown().collect, 1/60)
-    Clock.schedule_interval(breakdown().unpack, 1/60)
-    print(info)
+    Ttitle = "This is only a test"
+    TTime = NumericProperty(Time)
+    Tcar = StringProperty(car)
+    Tflags = NumericProperty(flags)
+    Tgear = StringProperty(gear)
+    Tplid = StringProperty(plid)
+    Tspeed = NumericProperty(speed)
+    Trpm = NumericProperty(rpm)
+    Tturbo = NumericProperty(turbo)
+    TengTemp = NumericProperty(engTemp)
+    Tfuel = NumericProperty(fuel)
+    ToilPressure = NumericProperty(oilPressure)
+    ToilTemp = NumericProperty(oilTemp)
+    TdashLights = StringProperty(dashLights)
+    TshowLights = StringProperty(showLights)
+    Tthrottle = NumericProperty(throttle)
+    Tbrake = NumericProperty(brake)
+    Tclutch = NumericProperty(clutch)
+    Tdisplay1 = StringProperty(display1)
+    Tdisplay2 = StringProperty(display2)
+    Tid = StringProperty(id)
+
+    def __init__(self, **kwargs):
+        super(Test, self).__init__(**kwargs)
+
+#    def unpacker(self, data=bytes):
+#        Time, car, flags, gear, plid, speed, rpm, turbo, engTemp, fuel, oilPressure, oilTemp, dashLights, showLights, throttle, brake, clutch, display1, display2, id = struct.unpack('Bxxx4sHssfffffffBBfff16s16si', data)
+
     def build(self):
         return MainUI()
 
 
-class Dtn:
-    pass
+class MED(EventDispatcher):
+    T = Test()
+    MTime = NumericProperty(T.Time)
+    Mcar = StringProperty(T.Tcar)
+    Mflags = NumericProperty(T.Tflags)
+    Mgear = StringProperty(T.Tgear)
+    Mplid = StringProperty(T.Tplid)
+    Mspeed = NumericProperty(T.speed)
+    Mrpm = NumericProperty(T.Trpm)
+    Mturbo = NumericProperty(T.Tturbo)
+    MengTemp = NumericProperty(T.TengTemp)
+    Mfuel = NumericProperty(T.Tfuel)
+    MoilPressure = NumericProperty(T.ToilPressure)
+    MoilTemp = NumericProperty(T.ToilTemp)
+    MdashLights = StringProperty(T.TdashLights)
+    MshowLights = StringProperty(T.TshowLights)
+    Mthrottle = NumericProperty(T.Tthrottle)
+    Mbrake = NumericProperty(T.Tbrake)
+    Mclutch = NumericProperty(T.Tclutch)
+    Mdisplay1 = StringProperty(T.Tdisplay1)
+    Mdisplay2 = StringProperty(T.Tdisplay2)
+    Mid = StringProperty(T.Tid)
+
+    def on_Mrpm(self, instance, value):
+        app = App.get_running_app()
+        app.rpm1.text = str(rpm)
 
 
 class MainUI(GridLayout):
-    pass
+#    t = Test()
+#    rout = t.rpm
+    rpm1 = MED.Mrpm
 
 
 if __name__ == '__main__':
