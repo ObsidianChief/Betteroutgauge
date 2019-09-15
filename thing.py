@@ -58,9 +58,6 @@ class Test(App):
         #data = decode(datin)
         data = datin
         Time, car, flags, gear, plid, speed, rpm, turbo, engTemp, fuel, oilPressure, oilTemp, dashLights, showLights, throttle, brake, clutch, display1, display2, id = struct.unpack('Bxxx4sHssfffffffBBfff16s16si', data)
-
-    def runner(cb):
-        cb()
     
     Clock.schedule_interval(op1, 0.5)
     Clock.schedule_interval(op2, 0.5)
