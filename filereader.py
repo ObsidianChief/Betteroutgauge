@@ -11,7 +11,5 @@ f = open("Spoofer", "br")
 while True:
     data = f.read(92)
     time.sleep(0.03)
-    #print(data)
-    #i = data.encode('utf-8','ignore')
     print(data)
     s.sendto(data,(ip,port))
