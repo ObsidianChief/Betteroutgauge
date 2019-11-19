@@ -44,12 +44,18 @@ class MainUI(GridLayout):
     Ndisplay1 = StringProperty()
     Ndisplay2 = StringProperty()
     Nid = StringProperty()
+#    button.pressed = false
 
     def __init__(self, **kwargs):
         super(MainUI, self).__init__(**kwargs)
         Clock.schedule_interval(self.update, 0.01)
 
     def update(self, _=None):
+#        DONT DECOMMENT THIS, IT WILL BREAK THE LOOP AND RETURN 0
+#        if button.pressed:
+#        data, addr = s.recvfrom(92)
+#        return data
+
         data, addr = s.recvfrom(92)
         Time, car, flags, gear, plid, speed, rpm, turbo, engTemp, fuel, oilPressure, oilTemp, dashLights, showLights, throttle, brake, clutch, display1, display2, id = struct.unpack('Bxxx4sHssfffffffBBfff16s16si', data)
 
@@ -59,7 +65,7 @@ class MainUI(GridLayout):
         self.Ngear=str(gear)
         self.Nplid=str(plid)
         self.Nspeed=str(speed)
-        self.Nrpm=str(int(rpm))
+        self.Nrpm=str(rpm)
         self.Nturbo=str(turbo)
         self.NengTemp=str(engTemp)
         self.Nfuel=str(fuel)

@@ -10,6 +10,6 @@ port = 4444
 f = open("Spoofer", "br")
 while True:
     data = f.read(92)
-    time.sleep(0.03)
+    time.sleep(0.02)
     print(data)
     s.sendto(data,(ip,port))
